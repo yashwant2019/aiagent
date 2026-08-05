@@ -1,0 +1,56 @@
+@SampleApi_HostAddress = http://localhost:5210
+
+### Health probe
+GET {{SampleApi_HostAddress}}/health
+Accept: application/json
+
+### List all products
+GET {{SampleApi_HostAddress}}/api/products
+Accept: application/json
+
+### List products in one category
+GET {{SampleApi_HostAddress}}/api/products?category=Audio
+Accept: application/json
+
+### Get a single product
+GET {{SampleApi_HostAddress}}/api/products/1
+Accept: application/json
+
+### Get a product that does not exist -> 404 problem+json
+GET {{SampleApi_HostAddress}}/api/products/999
+Accept: application/json
+
+### Create a product
+POST {{SampleApi_HostAddress}}/api/products
+Content-Type: application/json
+
+{
+  "name": "Webcam 1080p",
+  "description": "Autofocus with a privacy shutter.",
+  "price": 59.95,
+  "category": "Peripherals"
+}
+
+### Create with an invalid payload -> 400 validation problem
+POST {{SampleApi_HostAddress}}/api/products
+Content-Type: application/json
+
+{
+  "name": "",
+  "price": 0,
+  "category": "x"
+}
+
+### Replace a product
+PUT {{SampleApi_HostAddress}}/api/products/1
+Content-Type: application/json
+
+{
+  "name": "Mechanical Keyboard (TKL)",
+  "description": "87-key hot-swappable board, now with silent switches.",
+  "price": 99.99,
+  "category": "Peripherals"
+}
+
+### Delete a product
+DELETE {{SampleApi_HostAddress}}/api/products/3
